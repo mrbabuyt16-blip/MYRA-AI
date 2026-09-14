@@ -4,6 +4,13 @@
   padding: 0;
 }
 
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: #080812;
@@ -16,6 +23,10 @@ input {
   font: inherit;
 }
 
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .app {
   min-height: 100vh;
   background:
@@ -23,6 +34,8 @@ input {
     radial-gradient(circle at 80% 80%, #32153f 0%, transparent 35%),
     #080812;
 }
+
+/* TOP BAR */
 
 .top-bar {
   height: 70px;
@@ -32,6 +45,7 @@ input {
   justify-content: space-between;
   border-bottom: 1px solid #292943;
   background: rgba(10, 10, 25, 0.85);
+  backdrop-filter: blur(12px);
 }
 
 .logo {
@@ -63,6 +77,8 @@ input {
   cursor: pointer;
 }
 
+/* MAIN */
+
 .main-content {
   min-height: calc(100vh - 70px);
   display: grid;
@@ -70,6 +86,8 @@ input {
   gap: 20px;
   padding: 30px;
 }
+
+/* MYRA */
 
 .myra-section {
   display: flex;
@@ -89,6 +107,7 @@ input {
   background: linear-gradient(145deg, #17172e, #25254b);
   border: 1px solid #4b4b75;
   box-shadow: 0 0 40px rgba(130, 90, 255, 0.25);
+  overflow: hidden;
 }
 
 .avatar-placeholder {
@@ -108,6 +127,8 @@ input {
   color: #aaaac5;
 }
 
+/* CHAT */
+
 .chat-section {
   display: flex;
   flex-direction: column;
@@ -116,12 +137,15 @@ input {
   border: 1px solid #292943;
   border-radius: 22px;
   padding: 20px;
+  backdrop-filter: blur(10px);
 }
 
 .chat-box {
   flex: 1;
   overflow-y: auto;
   padding: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: #49496d transparent;
 }
 
 .message {
@@ -130,6 +154,7 @@ input {
   margin-bottom: 14px;
   border-radius: 17px;
   line-height: 1.5;
+  word-wrap: break-word;
 }
 
 .message.myra {
@@ -143,13 +168,163 @@ input {
   margin-left: auto;
 }
 
+/* INPUT */
+
 .input-area {
   display: flex;
   gap: 10px;
   margin-top: 15px;
+  align-items: center;
 }
 
 .input-area input {
   flex: 1;
   min-width: 0;
-  padding
+  padding: 14px 16px;
+  border-radius: 15px;
+  border: 1px solid #39395b;
+  outline: none;
+  background: #101022;
+  color: white;
+}
+
+.input-area input::placeholder {
+  color: #777795;
+}
+
+.input-area input:focus {
+  border-color: #6850a8;
+  box-shadow: 0 0 12px rgba(104, 80, 168, 0.25);
+}
+
+.mic-button,
+.send-button {
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.mic-button {
+  background: #252540;
+  color: white;
+}
+
+.send-button {
+  background: #5b3da3;
+  color: white;
+  font-size: 20px;
+}
+
+.mic-button:active,
+.send-button:active,
+.settings:active {
+  transform: scale(0.94);
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+  .top-bar {
+    height: 62px;
+    padding: 0 15px;
+  }
+
+  .logo {
+    font-size: 19px;
+    letter-spacing: 2px;
+  }
+
+  .status {
+    font-size: 11px;
+  }
+
+  .main-content {
+    min-height: calc(100vh - 62px);
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    gap: 15px;
+  }
+
+  .myra-section {
+    padding: 15px 0 5px;
+  }
+
+  .myra-avatar {
+    width: 150px;
+    height: 170px;
+    border-radius: 20px;
+  }
+
+  .avatar-placeholder {
+    font-size: 25px;
+    letter-spacing: 4px;
+  }
+
+  .myra-section h1 {
+    margin-top: 10px;
+    font-size: 25px;
+  }
+
+  .myra-section p {
+    margin-top: 5px;
+    font-size: 13px;
+  }
+
+  .chat-section {
+    min-height: 0;
+    height: calc(100vh - 330px);
+    padding: 12px;
+    border-radius: 18px;
+  }
+
+  .message {
+    max-width: 85%;
+    font-size: 14px;
+    padding: 11px 13px;
+  }
+
+  .input-area {
+    gap: 7px;
+  }
+
+  .input-area input {
+    padding: 12px;
+    font-size: 14px;
+  }
+
+  .mic-button,
+  .send-button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* SMALL PHONES */
+
+@media (max-width: 380px) {
+  .status {
+    display: none;
+  }
+
+  .myra-avatar {
+    width: 125px;
+    height: 145px;
+  }
+
+  .chat-section {
+    height: calc(100vh - 300px);
+  }
+
+  .mic-button,
+  .send-button {
+    width: 42px;
+    height: 42px;
+  }
+}
