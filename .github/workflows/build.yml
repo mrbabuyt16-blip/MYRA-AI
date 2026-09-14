@@ -1,10 +1,10 @@
 name: MYRA AI Build
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
   build:
@@ -17,8 +17,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: npm
+          node-version: 22
 
       - name: Install dependencies
         run: npm install
@@ -32,16 +31,20 @@ jobs:
           distribution: temurin
           java-version: "21"
 
-      - name: Build Android project
+      - name: Add Android platform
+        run: npx cap add android
+
+      - name: Sync Capacitor
+        run: npx cap sync android
+
+      - name: Build Debug APK
+        working-directory: android
         run: |
-          npx cap add android
-          npx cap sync android
-          cd android
           chmod +x gradlew
           ./gradlew assembleDebug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: MYRA-AI-debug-apk
+          name: MYRA-AI-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
