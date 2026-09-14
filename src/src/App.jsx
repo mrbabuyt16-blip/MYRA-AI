@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 function App() {
   const [message, setMessage] = useState("");
+
   const [messages, setMessages] = useState([
     {
       sender: "myra",
@@ -10,11 +11,13 @@ function App() {
   ]);
 
   const sendMessage = () => {
-    if (!message.trim()) return;
+    const text = message.trim();
 
-    setMessages([
-      ...messages,
-      { sender: "user", text: message },
+    if (!text) return;
+
+    setMessages((prev) => [
+      ...prev,
+      { sender: "user", text },
       {
         sender: "myra",
         text: "I'm Myra. I'm ready to help you! 🤖✨",
@@ -34,7 +37,9 @@ function App() {
           MYRA ONLINE
         </div>
 
-        <button className="settings">⚙️</button>
+        <button className="settings" type="button">
+          ⚙️
+        </button>
       </header>
 
       <main className="main-content">
@@ -66,13 +71,21 @@ function App() {
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter") sendMessage();
+                if (e.key === "Enter") {
+                  sendMessage();
+                }
               }}
             />
 
-            <button className="mic-button">🎤</button>
+            <button className="mic-button" type="button">
+              🎤
+            </button>
 
-            <button className="send-button" onClick={sendMessage}>
+            <button
+              className="send-button"
+              type="button"
+              onClick={sendMessage}
+            >
               ➤
             </button>
           </div>
